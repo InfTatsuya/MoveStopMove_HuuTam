@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ba80c28eb486514aa477748eea49a69, type: 3}
+  m_Name: Ability_WeaponOrbit
+  m_EditorClassIdentifier: 
+  duration: 0
+  effectDescription: 
+  abilityType: 2
+  amt: 3
+  abilityPrefab: {fileID: 3453386003331925002, guid: bee5d94ddc5408447a72b184ebd2cb48, type: 3}

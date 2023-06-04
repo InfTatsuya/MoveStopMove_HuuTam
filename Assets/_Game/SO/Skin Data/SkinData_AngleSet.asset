@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3856fb5b7a701419f8ae57ebec1a23, type: 3}
+  m_Name: SkinData_AngleSet
+  m_EditorClassIdentifier: 
+  itemName: Angle Set
+  itemId: 11
+  skinType: 3
+  moveSpeed: 25
+  attackRange: 7
+  attackSpeed: 1.2
+  headModel: {fileID: 7748655451958650945, guid: 12de0b6a579ff844282bec4475d5a99d, type: 3}
+  shieldModel: {fileID: 0}
+  wingModel: {fileID: 6808794812081822570, guid: 69d1fe3a204eaeb46b4612aee2ed84d6, type: 3}
+  leftHandWeaponModel: {fileID: 8730564543982373961, guid: a98f24040ca688349a591edbf905da0f, type: 3}
+  paintTexture: {fileID: 2800000, guid: fd90baa7d60450e4887ee85d7e1a1b6e, type: 3}
+  skinIcon: {fileID: 21300000, guid: 9f8e6f5ea0f849447b464193072ab6f3, type: 3}
+  price: 3000

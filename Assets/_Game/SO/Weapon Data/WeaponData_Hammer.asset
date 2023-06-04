@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cba9285270fbe841abd99dfab77d0c5, type: 3}
+  m_Name: WeaponData_Hammer
+  m_EditorClassIdentifier: 
+  weaponModelList: {fileID: 11400000, guid: 4af65da305986d7458ba76d78c1e319b, type: 2}
+  weaponType: 0
+  weaponModel: {fileID: 4344680296316809938, guid: 875edeeaac02a9d4793a8a6989339a11, type: 3}
+  damage: 40
+  attackRange: 5
+  price: 1000
+  weaponIcon: {fileID: 21300000, guid: 319e8d62007f9024382d65ca74a3e482, type: 3}

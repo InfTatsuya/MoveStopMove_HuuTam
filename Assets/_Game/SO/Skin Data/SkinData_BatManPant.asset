@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3856fb5b7a701419f8ae57ebec1a23, type: 3}
+  m_Name: SkinData_BatManPant
+  m_EditorClassIdentifier: 
+  itemName: Batman Pant
+  itemId: 0
+  skinType: 0
+  moveSpeed: 25
+  attackRange: 8
+  attackSpeed: 1.5
+  headModel: {fileID: 0}
+  shieldModel: {fileID: 0}
+  wingModel: {fileID: 0}
+  leftHandWeaponModel: {fileID: 0}
+  paintTexture: {fileID: 2800000, guid: 47c8d5358d60d474388d6a7e89a221aa, type: 3}
+  skinIcon: {fileID: 21300000, guid: 0b07588494789ff48ae322f599f38ac1, type: 3}
+  price: 800

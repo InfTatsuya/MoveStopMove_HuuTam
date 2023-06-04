@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3856fb5b7a701419f8ae57ebec1a23, type: 3}
+  m_Name: SkinData_Shield2
+  m_EditorClassIdentifier: 
+  itemName: Shield 2
+  itemId: 10
+  skinType: 2
+  moveSpeed: 0
+  attackRange: 0
+  attackSpeed: 0
+  headModel: {fileID: 0}
+  shieldModel: {fileID: 7903528673729593577, guid: 4da446ed16e85a44a84fdddd2c5e7344, type: 3}
+  wingModel: {fileID: 0}
+  leftHandWeaponModel: {fileID: 0}
+  paintTexture: {fileID: 0}
+  skinIcon: {fileID: 21300000, guid: 830b0bcd38414b242b5f40edc5dab7b8, type: 3}
+  price: 1000
