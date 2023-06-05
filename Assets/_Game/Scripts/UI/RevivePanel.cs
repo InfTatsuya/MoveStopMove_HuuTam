@@ -11,6 +11,7 @@ public class RevivePanel : MonoBehaviour
     [SerializeField] Button acceptButton;
 
     private float timer;
+    private bool cancelTimeout;
 
     private void OnEnable()
     {
@@ -18,6 +19,8 @@ public class RevivePanel : MonoBehaviour
         cooldownText.text = timer.ToString();
         cooldownImage.fillAmount = 1f;
         acceptButton.onClick.AddListener(AcceptRevive);
+
+        cancelTimeout = false;
     }
 
     private void Update()
@@ -27,7 +30,7 @@ public class RevivePanel : MonoBehaviour
         cooldownImage.fillAmount = timer / 5f;
         cooldownText.text = Mathf.RoundToInt(timer).ToString();
 
-        if(timer < 0f)
+        if(timer < 0f && !cancelTimeout)
         {
             OnTimeOut();
         }
@@ -40,7 +43,11 @@ public class RevivePanel : MonoBehaviour
 
     private void AcceptRevive()
     {
-        //TODO: make revive func
+        cancelTimeout = true;
+        this.gameObject.SetActive(false);
+        UIManager.Instance.SwitchToIngameUI();
+
+        AdsManager.Instance.LoadRewardAds();
     }
 
     private void OnTimeOut()

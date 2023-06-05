@@ -89,6 +89,7 @@ public class ShopSystem : MonoBehaviour, ISaveManager
         if(money >= price)
         {
             money -= price;
+            UIManager.Instance.UpdateInfoOnScreen();
             return true;
         }
 

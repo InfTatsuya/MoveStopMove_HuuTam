@@ -255,11 +255,13 @@ public abstract class Character : MonoBehaviour, IDamageable
     public void IncreaseLevel()
     {
         level++;
+        transform.localScale = Vector3.one * (1 + level * scaleFactor);
     }
 
     protected void SetLevel(int newLevel)
     {
         level = newLevel;
+        transform.localScale = Vector3.one * (1 + level * scaleFactor);
     }
 
 

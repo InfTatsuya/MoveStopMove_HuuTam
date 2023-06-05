@@ -53,6 +53,8 @@ public class UIManager : MonoBehaviour
 
     private void ResetGame()
     {
+        AdsManager.Instance.LoadInterstitialAds();
+
         SwitchToMainMenuUI();
         GameManager.Instance.ReturnAllEnemy();
     }
@@ -83,6 +85,11 @@ public class UIManager : MonoBehaviour
     public void SwitchToMainMenuUI()
     {
         SwitchTo(mainMenuUI);
+        UpdateInfoOnScreen();
+    }
+
+    public void UpdateInfoOnScreen()
+    {
         currencyText.text = ShopSystem.Instance.Money.ToString();
         starAmtText.text = "N/A";
     }

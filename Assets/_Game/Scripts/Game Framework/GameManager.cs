@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public static event OnSpawnEnemy onEnemySpawn;
 
     [SerializeField] Player player;
+    public Player MainPlayer => player;
 
     [SerializeField] int initialAmountEnemy = 5;
     [SerializeField] float spawnCooldown = 5f;
@@ -75,6 +76,15 @@ public class GameManager : MonoBehaviour
         foreach(var enemy in enemiesOnScreen)
         {
             enemy.IsPause = true;
+        }
+    }
+
+    public void ResumeGame()
+    {
+        isPlaying = true;
+        foreach (var enemy in enemiesOnScreen)
+        {
+            enemy.IsPause = false;
         }
     }
 

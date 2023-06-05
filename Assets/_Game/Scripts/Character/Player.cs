@@ -256,4 +256,12 @@ public class Player : Character, ISaveManager
                 break;
         }
     }
+
+    public void RevivePlayer()
+    {
+        health = 100;
+        stateMachine.ChangeState(IdleState);
+
+        GameManager.Instance.ResumeGame();
+    }
 }
