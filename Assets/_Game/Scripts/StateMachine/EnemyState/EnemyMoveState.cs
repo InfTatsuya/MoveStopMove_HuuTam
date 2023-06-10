@@ -13,7 +13,8 @@ public class EnemyMoveState : EnemyState
     {
         base.Enter();
 
-        Vector3 targetPos = new Vector3(Random.Range(-25f, 25f), 0f, Random.Range(-25f, 25f));
+        Vector3 targetPos = enemy.transform.position + Random.insideUnitSphere * enemy.PatrolRadius;
+        targetPos.y = 0;
         enemy.SetDestination(targetPos);
         Debug.Log(targetPos);
 

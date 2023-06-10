@@ -23,6 +23,7 @@ public class Projectile : MonoBehaviour
         set => pool = value;
     }
 
+    private Vector3 startPosition;
     private Vector3 destination;
     private float progress;
     private IDamageable dealer;
@@ -31,6 +32,7 @@ public class Projectile : MonoBehaviour
     {
         this.damage = damage;
 
+        startPosition = transform.position;
         this.destination = destination;
         this.destination.y = transform.position.y;
 
@@ -72,7 +74,7 @@ public class Projectile : MonoBehaviour
     private void Update()
     {
         progress += Time.deltaTime * speed;
-        transform.position = Vector3.LerpUnclamped(transform.position, destination, progress);
+        transform.position = Vector3.LerpUnclamped(startPosition, destination, progress);
 
         if (needSpin)
         {

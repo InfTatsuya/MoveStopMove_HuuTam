@@ -13,7 +13,7 @@ public class Indicator : MonoBehaviour
 
     public void SetupIndicator(Character targetToTrack)
     {
-        this.target = targetToTrack.transform;
+        this.target = targetToTrack.AttachIndicatorPoint;
         levelText.text = targetToTrack.Level.ToString();
     }
 
@@ -43,7 +43,7 @@ public class Indicator : MonoBehaviour
             pos.y = ((maxX - center.x) / (calculatePos.x - center.x)) * (calculatePos.y - center.y) + center.y;
         }
 
-        if(calculatePos.y < minY)
+        else if(calculatePos.y < minY)
         {
             pos.y = minY;
             pos.x = ((minY - center.y) / (calculatePos.y - center.y)) * (calculatePos.x - center.x) + center.x;

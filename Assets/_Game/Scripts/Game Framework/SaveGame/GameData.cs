@@ -5,8 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class GameData 
 {
+    public string playerName;
     public int money;
-    public int level;
+    public int starAmt;
 
     public List<EWeaponType> weaponList;
     public List<int> skinIdList;

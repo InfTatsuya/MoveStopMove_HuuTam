@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Character, ISaveManager
+public class Player : Character
 {
     private Vector2 moveDirection;
     public Vector2 MoveDirection => moveDirection;
@@ -75,7 +75,7 @@ public class Player : Character, ISaveManager
         ShopSystem.Instance.onEquipWeapon += ShopSystem_onPurchaseWeapon;
         ShopSystem.Instance.onEquipSkin += Instance_onPurchaseSkin;
 
-        AddAbility(testAbility); // for testing, TODO: remove before build
+        //AddAbility(testAbility); // for testing, TODO: remove before build
     }
 
     // for testing, TODO: remove before build
@@ -111,7 +111,7 @@ public class Player : Character, ISaveManager
         moveDirection = Vector2.zero;
 
         UIManager.Instance.SwitchToRevivePanel();
-        GameManager.Instance.GameOver();
+        GameManager.Instance.PauseGame();
     }
 
     public bool CheckHaveTargetAndInRange()
@@ -142,18 +142,10 @@ public class Player : Character, ISaveManager
         target = null;
     }
 
-    public void LoadData(GameData data)
-    {
-        SetLevel(data.level);
-    }
-
-    public void SaveData(ref GameData data)
-    {
-        data.level = Level;
-    }
-
     public override void OnNewGame()
     {
+        SetCharacterName();
+        health = 100;
         transform.position = Vector3.zero;
         stateMachine.ChangeState(IdleState);
     }
@@ -225,6 +217,12 @@ public class Player : Character, ISaveManager
         base.OnShieldDestroy();
 
         RemoveAbility(abilityDict[EAbilityType.Shield]);
+    }
+
+    protected override void SetCharacterName(string name = "Character_00")
+    {
+        name = GameManager.Instance.PlayerName;
+        base.SetCharacterName(name);
     }
 
     private void RemoveAbility(AbilityBooster abilityBooster)

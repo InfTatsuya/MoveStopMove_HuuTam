@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public abstract class Character : MonoBehaviour, IDamageable
@@ -20,6 +21,7 @@ public abstract class Character : MonoBehaviour, IDamageable
     [SerializeField] protected float moveSpeed = 5f;
     [SerializeField] protected Animator anim;
     [SerializeField] protected Transform spawnProjectilePoint;
+    [SerializeField] TextMeshPro nameText;
     public Transform SpawnProjectilePoint => spawnProjectilePoint;
     [SerializeField] protected Projectile weaponPrefab;
     [SerializeField] protected Transform attachWeaponPoint;
@@ -28,6 +30,8 @@ public abstract class Character : MonoBehaviour, IDamageable
     [SerializeField] protected int projectileAmount = 1;
     public int ProjectileAmount => projectileAmount;
     [SerializeField] protected WeaponList weaponList;
+    [SerializeField] Transform attachIndicatorPoint;
+    public Transform AttachIndicatorPoint => attachIndicatorPoint;
 
     [Space, Header("Character Info")]
     [SerializeField] protected int health = 100;
@@ -107,6 +111,12 @@ public abstract class Character : MonoBehaviour, IDamageable
 
         ChangeWeapon(EWeaponType.AxeDouble);
         isDead = false;
+        SetCharacterName();
+    }
+
+    protected virtual void SetCharacterName(string name = "Character_00")
+    {
+        nameText.text = name;
     }
 
     protected virtual void ChangeWeapon(EWeaponType newWeaponType)

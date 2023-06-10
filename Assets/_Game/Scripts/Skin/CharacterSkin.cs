@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CharacterSkin : MonoBehaviour
 {
+    [SerializeField] bool isPreview;
+
     [SerializeField] Transform headAttachPoint;
     [SerializeField] Transform wingAttachPoint;
     [SerializeField] Transform shieldAttachPoint;
@@ -27,7 +29,35 @@ public class CharacterSkin : MonoBehaviour
     public void ChangeSkin(SkinData skinData, Character character)
     {
         EquipSkin(skinData);
-        skinData.OnEquip(character);
+
+        if(!isPreview)
+        {
+            skinData.OnEquip(character);
+        }
+        else
+        {
+            SetPreview();
+        }
+    }
+
+    private void SetPreview()
+    {
+        if(headSkin != null)
+        {
+            headSkin.layer = 8;
+        } 
+        if(wingSkin != null)
+        {
+            wingSkin.layer = 8;
+        }
+        if(shieldSkin != null)
+        {
+            shieldSkin.layer = 8;
+        }
+        if(leftHandWeapon != null)
+        {
+            leftHandWeapon.layer = 8;
+        }
     }
 
     private void EquipSkin(SkinData skinData)

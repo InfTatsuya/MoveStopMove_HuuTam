@@ -1,20 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ShopPanelUI : MonoBehaviour
 {
     [SerializeField] Button buyButton;
+    [SerializeField] TextMeshProUGUI priceText;
     [SerializeField] Button equipButton;
     [SerializeField] Button closeButton;
     [SerializeField] ShopItemUI shopItemUIPrefab;
     [SerializeField] Transform parentUI;
+    [SerializeField] TextMeshProUGUI descriptionText;
+
+    [Space, Header("For Weapon Shop")]
+    [SerializeField] WeaponModelView weaponModels;
+    [SerializeField] WeaponImage weaponImage;
+
+    [Space, Header("For Skin Shop")]
     [SerializeField] bool isSkinShop;
     [SerializeField] Transform headPanel;
     [SerializeField] Transform pantPanel;
     [SerializeField] Transform shieldPanel;
     [SerializeField] Transform fullSetPanel;
+    [SerializeField] CharacterSkin modelSkinPreview;
 
     [SerializeField] List<ShopItemUI> itemsUIList = new List<ShopItemUI>();
 
@@ -79,6 +89,8 @@ public class ShopPanelUI : MonoBehaviour
         currentActiveItemUI = itemUI;
         currentActiveItemUI.SetActive(true);
 
+        UpdateVisualModel();
+
         if (itemUI.IsPurchased)
         {
             equipButton.gameObject.SetActive(true);
@@ -86,11 +98,29 @@ public class ShopPanelUI : MonoBehaviour
         else
         {
             equipButton.gameObject.SetActive(false);
+            priceText.text = itemUI.Price.ToString();
         }
 
         foreach(var item in itemsUIList)
         {
             item.UpdateVisual();
+        }
+    }
+
+    private void UpdateVisualModel()
+    {
+        if (!currentActiveItemUI.IsSkin)
+        {
+            WeaponData data = currentActiveItemUI.GetWeaponData();
+            descriptionText.text = data.GetDescription();
+            weaponModels.SetActiveModel((int)data.weaponType);
+            weaponImage.SetUp(weaponModels);
+        }
+        else
+        {
+            SkinData data = currentActiveItemUI.GetSkinData();
+            descriptionText.text = data.GetDescription();
+            modelSkinPreview.ChangeSkin(data, null);
         }
     }
 

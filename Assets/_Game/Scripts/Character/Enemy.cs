@@ -17,6 +17,7 @@ public class Enemy : Character
 
 
     [Space, Header("Enemy Info")]
+    [SerializeField] EnemyDataList enemyDataList;
     [SerializeField] float idleTime = 3f;
     public float IdleTime => idleTime;
     [SerializeField] float patrolRadius = 7f;
@@ -59,7 +60,17 @@ public class Enemy : Character
         base.OnNewGame();
 
         stateMachine.Initialize(IdleState);
-        
+
+        SetupEnemyInfo();
+    }
+
+    private void SetupEnemyInfo()
+    {
+        int randomIndex = UnityEngine.Random.Range(0, enemyDataList.enemyNames.Count);
+        int randomLevel = UnityEngine.Random.Range(0, enemyDataList.maxLevel);
+
+        SetCharacterName(enemyDataList.enemyNames[randomIndex]);
+        SetLevel(randomLevel);
     }
 
     protected override void Start()
@@ -69,7 +80,15 @@ public class Enemy : Character
 
     protected override void Update()
     {
-        if (IsPause) return;
+        if (IsPause)
+        {
+            agent.isStopped = true;
+            return;
+        }
+        else
+        {
+            agent.isStopped = false;
+        }
 
         base.Update();
     }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "SO/Skin Data", fileName ="SkinData_")]
@@ -27,6 +28,37 @@ public class SkinData : ScriptableObject
         {
             character.ModifyStatsBySkin(moveSpeed, attackRange, attackSpeed);
         }
+    }
+
+    public string GetDescription()
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        if(moveSpeed > 0)
+        {
+            stringBuilder.Append($"+{moveSpeed} MOVE SPEED");
+        }
+
+        if(attackRange > 0)
+        {
+            if(stringBuilder.Length > 1)
+            {
+                stringBuilder.AppendLine();
+            }
+
+            stringBuilder.Append($"+{attackRange} ATTACK RANGE");
+        }
+
+        if (attackSpeed > 0)
+        {
+            if (stringBuilder.Length > 1)
+            {
+                stringBuilder.AppendLine();
+            }
+
+            stringBuilder.Append($"+{attackSpeed} ATTACK SPEED");
+        }
+
+        return stringBuilder.ToString();
     }
 
     private void OnValidate()

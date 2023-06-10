@@ -19,8 +19,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] Button tryAgainButton;
     [SerializeField] Button nextLevelButton;
 
+    [SerializeField] Sprite oneStar;
+    [SerializeField] Sprite twoStar;
+    [SerializeField] Sprite threeStar;
+    [SerializeField] Image starImage;
+
     [SerializeField] TextMeshProUGUI currencyText;
     [SerializeField] TextMeshProUGUI starAmtText;
+    [SerializeField] TMP_InputField playerNameInputField;
     [SerializeField] Button playButton;
     [SerializeField] Button weaponShopButton;
     [SerializeField] Button clothesShopButton;
@@ -41,6 +47,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         playButton.onClick.AddListener(NewGame);
+        playerNameInputField.onEndEdit.AddListener(SetPlayerName);
         weaponShopButton.onClick.AddListener(OpenWeaponShopUI);
         clothesShopButton.onClick.AddListener(OpenClothesShopUI);
 
@@ -51,12 +58,19 @@ public class UIManager : MonoBehaviour
         ingameUI.SetActive(true);
     }
 
+    private void SetPlayerName(string playerName)
+    {
+        GameManager.Instance.SetPlayerName(playerName);
+    }
+
     private void ResetGame()
     {
         AdsManager.Instance.LoadInterstitialAds();
 
-        SwitchToMainMenuUI();
         GameManager.Instance.ReturnAllEnemy();
+        GameManager.Instance.CalculateStarByKillAmount();
+        
+        SwitchToMainMenuUI();
     }
 
     private void NewGame()
@@ -91,7 +105,7 @@ public class UIManager : MonoBehaviour
     public void UpdateInfoOnScreen()
     {
         currencyText.text = ShopSystem.Instance.Money.ToString();
-        starAmtText.text = "N/A";
+        starAmtText.text = GameManager.Instance.StarCount.ToString();
     }
 
     public void SwitchToIngameUI()
@@ -112,6 +126,23 @@ public class UIManager : MonoBehaviour
     public void SwitchToLosePanel()
     {
         SwitchTo(losePanel);
+        SetUpLosePanel();
+    }
+
+    private void SetUpLosePanel()
+    {
+        int killCount = GameManager.Instance.PlayerKillCount;
+        Sprite starSprite = oneStar;
+        if(killCount > 30)
+        {
+            starSprite = twoStar;
+        }
+        if(killCount > 60)
+        {
+            starSprite = threeStar;
+        }
+
+        starImage.sprite = starSprite;
     }
 
     private void OpenWeaponShopUI()

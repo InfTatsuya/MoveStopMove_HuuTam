@@ -17,6 +17,8 @@ public class ShopItemUI : MonoBehaviour, IPointerDownHandler
     public SkinData GetSkinData() { return skinData; }
     private bool isSkin = false;
     public bool IsSkin { get {  return isSkin; } }
+    private int price;
+    public int Price { get { return price; } }
 
     [Space, Header("Setup Visual")]
     [SerializeField] Sprite defaulBackground;
@@ -40,6 +42,7 @@ public class ShopItemUI : MonoBehaviour, IPointerDownHandler
     {
         this.shopPanelUI = shopPanelUI;
         this.weaponData = data;
+        this.price = data.price;
         this.isPurchased = isPurchased;
 
         backgroundImage.sprite = defaulBackground;
@@ -52,11 +55,13 @@ public class ShopItemUI : MonoBehaviour, IPointerDownHandler
         this.shopPanelUI = shopPanelUI;
         this.skinData = data;
         this.isPurchased = isPurchased;
+        this.price = data.price;
         isSkin = true;
 
         backgroundImage.sprite = defaulBackground;
         itemIcon.sprite = data.skinIcon;
         priceText.text = data.price.ToString();
+
     }
 
     public void UpdateVisual()

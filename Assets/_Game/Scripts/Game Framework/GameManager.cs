@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, ISaveManager
 {
     public static GameManager Instance {  get; private set; }
 
@@ -21,6 +21,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<Enemy> enemiesOnScreen = new List<Enemy>();
     private float spawnTimer;
     private bool isPlaying;
+
+    [SerializeField] private int playerKillCount;
+    public int PlayerKillCount => playerKillCount;
+
+    private int starCount = 0;
+    public int StarCount => starCount;
+
+    private string playerName;
+    public string PlayerName => playerName;
+
+    public void SetPlayerName(string newName)
+    {
+        playerName = newName;
+    }
 
     private void Awake()
     {
@@ -68,9 +82,31 @@ public class GameManager : MonoBehaviour
         isPlaying = true;
 
         player.OnNewGame();
+        playerKillCount = 0;
     }
 
-    public void GameOver()
+    public void CalculateStarByKillAmount()
+    {
+        if(playerKillCount > 0 && playerKillCount < 30)
+        {
+            starCount += 1;
+        }
+        else if(playerKillCount >= 30 && playerKillCount < 60)
+        {
+            starCount += 2;
+        }
+        else if(playerKillCount >= 60)
+        {
+            starCount += 3;
+        }
+    }
+
+    public void IncreaseKillCount()
+    {
+        playerKillCount++;
+    }
+
+    public void PauseGame()
     {
         isPlaying = false;
         foreach(var enemy in enemiesOnScreen)
@@ -90,9 +126,22 @@ public class GameManager : MonoBehaviour
 
     public void ReturnAllEnemy()
     {
+        isPlaying = false;
         foreach(var enemy in enemiesOnScreen)
         {
             enemy.ReleaseSelf();
         }
+    }
+
+    public void LoadData(GameData data)
+    {
+        starCount = data.starAmt;
+        playerName = data.playerName;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.starAmt = starCount;
+        data.playerName = playerName;
     }
 }

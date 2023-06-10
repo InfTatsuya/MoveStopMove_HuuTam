@@ -74,6 +74,7 @@ public class ShopSystem : MonoBehaviour, ISaveManager
         if (e.damageDealer as Player == null) return;
 
         (e.damageDealer as Player).IncreaseLevel();
+        GameManager.Instance.IncreaseKillCount();
 
         int amtMoney = UnityEngine.Random.Range(0, 50);
         AddMoney(amtMoney);

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 
@@ -22,6 +23,16 @@ public class WeaponData : ScriptableObject
     {
         weaponModel = weaponModelList.GetModelsByType(weaponType);
     }
+
+    public string GetDescription()
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.Append($"+{damage} DAMAGE");
+        stringBuilder.AppendLine();
+        stringBuilder.Append($"+{attackRange} ATTACK RANGE");
+
+        return stringBuilder.ToString();
+    }
 }
 
 
@@ -32,5 +43,6 @@ public enum EWeaponType
     Axe,
     AxeDouble,
     Knife,
-    Canndy
+    Canndy,
+    Boomerang
 }
