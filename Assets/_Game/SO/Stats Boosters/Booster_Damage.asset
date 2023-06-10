@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Booster_Damage
   m_EditorClassIdentifier: 
   duration: 5
+  icon: {fileID: 21300000, guid: c6b148b2d875e90409d91af6d6938b01, type: 3}
   effectDescription: Increase damage to 30 for 5s.
   statsType: 2
   amtToBoost: 30

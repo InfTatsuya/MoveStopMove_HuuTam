@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Ability_WeaponOrbit
   m_EditorClassIdentifier: 
   duration: 0
-  effectDescription: 
+  icon: {fileID: 21300000, guid: 56a23fc71b520734e9bbf911775b4058, type: 3}
+  effectDescription: Create weapons flying around
   abilityType: 2
   amt: 3
   abilityPrefab: {fileID: 3453386003331925002, guid: bee5d94ddc5408447a72b184ebd2cb48, type: 3}

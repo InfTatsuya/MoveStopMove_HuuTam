@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class BoosterEffect : ScriptableObject
 {
     public float duration;
+    public Sprite icon;
     [TextArea] public string effectDescription;
 
 

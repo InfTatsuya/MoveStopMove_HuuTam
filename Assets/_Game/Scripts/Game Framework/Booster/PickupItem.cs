@@ -1,10 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PickupItem : MonoBehaviour
 {
-    [SerializeField] bool isStatsBooster = true;
+    public static event EventHandler<OnPickupItemArgs> onPickupItem;
+    public class OnPickupItemArgs : EventArgs
+    {
+        public List<StatsBoostEffect> statsBoostEffects;
+        public List<AbilityBooster> abilityBoosters;
+    }
+
 
     [SerializeField] List<StatsBoostEffect> statsBoostEffects = new List<StatsBoostEffect>();
     [SerializeField] List<AbilityBooster> abilityBoosters = new List<AbilityBooster>();
@@ -13,34 +20,9 @@ public class PickupItem : MonoBehaviour
     {
         if(other.TryGetComponent<Player>(out var player))
         {
-            if (isStatsBooster)
-            {
-                foreach (var effect in statsBoostEffects)
-                {
-                    effect.ApplyEffect(player);
-                }
-            }
-            else
-            {
-                foreach (var effect in abilityBoosters)
-                {
-                    effect.ApplyEffect(player);
-                }
-            }
+            onPickupItem?.Invoke(this, new OnPickupItemArgs { abilityBoosters = abilityBoosters, statsBoostEffects = statsBoostEffects });
 
             Destroy(this.gameObject);
-        }
-    }
-
-    private void OnValidate()
-    {
-        if (isStatsBooster)
-        {
-            abilityBoosters.Clear();
-        }
-        else
-        {
-            statsBoostEffects.Clear();
         }
     }
 }

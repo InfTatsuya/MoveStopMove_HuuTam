@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Ability_Shield
   m_EditorClassIdentifier: 
   duration: 0
-  effectDescription: 
+  icon: {fileID: 21300000, guid: 830b0bcd38414b242b5f40edc5dab7b8, type: 3}
+  effectDescription: Gain a shield can absorb 200 damage
   abilityType: 1
-  amt: 10
+  amt: 200
   abilityPrefab: {fileID: 6860503193459629619, guid: 53af1bd4dcca3284aa32eeee613878be, type: 3}

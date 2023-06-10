@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Booster_AttackRange
   m_EditorClassIdentifier: 
   duration: 10
+  icon: {fileID: 21300000, guid: 6fff86b09f945b54487777673e846363, type: 3}
   effectDescription: Increase attack range to 8 for 10s.
   statsType: 0
   amtToBoost: 8
