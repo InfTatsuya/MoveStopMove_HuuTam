@@ -21,4 +21,13 @@ public class AnimationTrigger : MonoBehaviour
     {
         myCharacter.CharacterStateMachine.CurrentState.SetAnimTrigger(true);
     }
+
+    public void MeleeAttack()
+    {
+        EndlessModeEnemy enemy = myCharacter as EndlessModeEnemy;
+        if(enemy != null)
+        {
+            enemy.MeleeAttack();
+        }
+    }
 }

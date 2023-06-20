@@ -16,6 +16,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject winPanel;
     [SerializeField] GameObject losePanel;
 
+    [SerializeField] GameObject weaponShopView;
+    [SerializeField] GameObject clothesShopView;
+
     [SerializeField] Button tryAgainButton;
     [SerializeField] Button nextLevelButton;
 
@@ -56,6 +59,8 @@ public class UIManager : MonoBehaviour
 
         SwitchToMainMenuUI();
         ingameUI.SetActive(true);
+
+        DeactivateModelView();
     }
 
     private void SetPlayerName(string playerName)
@@ -148,10 +153,18 @@ public class UIManager : MonoBehaviour
     private void OpenWeaponShopUI()
     {
         weaponShopUI.SetActive(true);
+        weaponShopView.SetActive(true);
     }
 
     private void OpenClothesShopUI()
     {
         clothesShopUI.SetActive(true);
+        clothesShopView.SetActive(true);
+    }
+
+    public void DeactivateModelView()
+    {
+        weaponShopView.SetActive(false);
+        clothesShopView.SetActive(false);
     }
 }

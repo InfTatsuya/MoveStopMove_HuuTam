@@ -22,4 +22,14 @@ public abstract class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour
     public abstract T GetPooledObject();
 
     public abstract void ReturnToPool(T pooledObject);
+
+    private void OnDestroy()
+    {
+        while (stack.Count > 0)
+        {
+            Destroy(stack.Pop());
+        }
+
+        stack.Clear();
+    }
 }

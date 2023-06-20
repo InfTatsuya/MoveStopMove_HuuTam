@@ -24,3 +24,11 @@ MonoBehaviour:
   - LELOUCH
   - BOB
   maxLevel: 5
+  skinDataList:
+  - {fileID: 11400000, guid: 3358a2c981d196740aed519320646749, type: 2}
+  - {fileID: 11400000, guid: f48fe880a7cda2149bbf526269606f93, type: 2}
+  - {fileID: 11400000, guid: 1589d7a347fa28645aff36cabce7154a, type: 2}
+  - {fileID: 11400000, guid: a21678e04951cae4bb94fd540d082083, type: 2}
+  - {fileID: 11400000, guid: 1b608077dcf472849b72ee505d2bf183, type: 2}
+  - {fileID: 11400000, guid: 2a31442625b810042b99eef6df917fb0, type: 2}
+  weaponTypeList: 01000000020000000300000004000000

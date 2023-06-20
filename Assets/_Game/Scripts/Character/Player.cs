@@ -7,7 +7,7 @@ public class Player : Character
     private Vector2 moveDirection;
     public Vector2 MoveDirection => moveDirection;
 
-    private CharacterSkin playerSkin;
+    
     private Enemy target;
     public Enemy Target
     {
@@ -45,14 +45,12 @@ public class Player : Character
 
         stateMachine.Initialize(IdleState);
 
-        playerSkin = GetComponent<CharacterSkin>();
-
         Debug.Log("OnInit player chay");
     }
 
     private void Instance_onPurchaseSkin(object sender, ShopSystem.OnEquipSkinArgs e)
     {
-        playerSkin.ChangeSkin(e.skinData, this);
+        characterSkin.ChangeSkin(e.skinData, this);
     }
 
     private void ShopSystem_onPurchaseWeapon(object sender, ShopSystem.OnEquipWeaponArgs e)
@@ -74,6 +72,7 @@ public class Player : Character
         JoyStick.onStickInputValueUpdated += JoyStick_onStickInputValueUpdated;
         ShopSystem.Instance.onEquipWeapon += ShopSystem_onPurchaseWeapon;
         ShopSystem.Instance.onEquipSkin += Instance_onPurchaseSkin;
+        ChangeWeapon(EWeaponType.Hammer);
 
         //AddAbility(testAbility); // for testing, TODO: remove before build
     }
@@ -110,8 +109,11 @@ public class Player : Character
         stateMachine.ChangeState(DeathState);
         moveDirection = Vector2.zero;
 
-        UIManager.Instance.SwitchToRevivePanel();
-        GameManager.Instance.PauseGame();
+        if(GameManager.Instance != null)
+        {
+            UIManager.Instance.SwitchToRevivePanel();
+            GameManager.Instance.PauseGame();
+        }     
     }
 
     public bool CheckHaveTargetAndInRange()
@@ -221,6 +223,7 @@ public class Player : Character
 
     protected override void SetCharacterName(string name = "Character_00")
     {
+        if (GameManager.Instance == null) return;
         name = GameManager.Instance.PlayerName;
         base.SetCharacterName(name);
     }
@@ -261,5 +264,16 @@ public class Player : Character
         stateMachine.ChangeState(IdleState);
 
         GameManager.Instance.ResumeGame();
+    }
+
+    public void EndlessMode_Equip(EWeaponType weaponType, List<SkinData> skinDataList)
+    {
+        ChangeWeapon(weaponType);
+
+        foreach(var skin in skinDataList)
+        {     
+            if(skin == null) continue;  
+            characterSkin.ChangeSkin(skin, this);
+        }
     }
 }

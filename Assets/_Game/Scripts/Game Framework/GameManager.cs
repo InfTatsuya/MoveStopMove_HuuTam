@@ -48,6 +48,14 @@ public class GameManager : MonoBehaviour, ISaveManager
         }
     }
 
+    private void OnDestroy()
+    {
+        if(Instance == this)
+        {
+            Instance = null;
+        }
+    }
+
     private void Update()
     {
         if (!isPlaying) return;

@@ -10,10 +10,12 @@ public class CharacterSkin : MonoBehaviour
     [SerializeField] Transform wingAttachPoint;
     [SerializeField] Transform shieldAttachPoint;
     [SerializeField] Transform leftHandWeaponAttachPoint;
+    [SerializeField] Transform tailAttachPoint;
 
     [SerializeField] GameObject body;
     [SerializeField] GameObject pants;
 
+    [SerializeField] SkinData bodySkinData;
     [SerializeField] SkinData pantSkinData;
     [SerializeField] SkinData headSkinData;
     [SerializeField] SkinData shieldSkinData;
@@ -23,8 +25,21 @@ public class CharacterSkin : MonoBehaviour
     private GameObject wingSkin;
     private GameObject shieldSkin;
     private GameObject leftHandWeapon;
+    private GameObject tailSkin;
 
     private bool isEquipSet;
+
+    public List<SkinData> GetCurrentEquipSkinData()
+    {
+        if (isEquipSet)
+        {
+            return new List<SkinData>() { skinDataFullSet };
+        }
+        else
+        {
+            return new List<SkinData>() { bodySkinData, pantSkinData, headSkinData, shieldSkinData };
+        }
+    }
 
     public void ChangeSkin(SkinData skinData, Character character)
     {
@@ -49,6 +64,10 @@ public class CharacterSkin : MonoBehaviour
         if(wingSkin != null)
         {
             wingSkin.layer = 8;
+            foreach(Transform child in wingSkin.transform)
+            {
+                child.gameObject.layer = 8;
+            }
         }
         if(shieldSkin != null)
         {
@@ -58,25 +77,17 @@ public class CharacterSkin : MonoBehaviour
         {
             leftHandWeapon.layer = 8;
         }
+        if(tailSkin != null)
+        {
+            tailSkin.layer = 8;
+        }
     }
 
     private void EquipSkin(SkinData skinData)
     {
         if (isEquipSet)
         {
-            Destroy(headSkin.gameObject);
-            headSkin = null;
-
-            Destroy(wingSkin.gameObject);
-            wingSkin = null;
-
-            Destroy(leftHandWeapon.gameObject);
-            leftHandWeapon = null;
-
-            pants.GetComponent<Renderer>().material.SetTexture("_MainTex", null);
-            pantSkinData = null;
-
-            isEquipSet = false;
+            RemoveSkinSet();
         }
 
         switch (skinData.skinType)
@@ -115,8 +126,45 @@ public class CharacterSkin : MonoBehaviour
         }
     }
 
+    private void RemoveSkinSet()
+    {
+        if(headSkin != null)
+        {
+            Destroy(headSkin.gameObject);
+            headSkin = null;
+        }
+        
+        if(wingSkin != null)
+        {
+            Destroy(wingSkin.gameObject);
+            wingSkin = null;
+        }
+        
+        if(leftHandWeapon != null)
+        {
+            Destroy(leftHandWeapon.gameObject);
+            leftHandWeapon = null;
+        }
+        
+        if(tailSkin != null)
+        {
+            Destroy(tailSkin.gameObject);
+            tailSkin = null;
+        }
+
+        body.GetComponent<Renderer>().material.SetTexture("_MainTex", null);
+        bodySkinData = null;
+
+        pants.GetComponent<Renderer>().material.SetTexture("_MainTex", null);
+        pantSkinData = null;
+
+        isEquipSet = false;
+    }
+
     private void EquipSetSkin(SkinData skinData)
     {
+        RemoveSkinSet();
+
         skinDataFullSet = skinData;
         isEquipSet = true;
 
@@ -125,34 +173,29 @@ public class CharacterSkin : MonoBehaviour
             pants.GetComponent<Renderer>().material.SetTexture("_MainTex", skinData.paintTexture);
         }
 
+        if(skinData.bodyTexture != null)
+        {
+            body.GetComponent<Renderer>().material.SetTexture("_MainTex", skinData.bodyTexture);
+        }
+
         if(skinData.headModel != null)
         {
-            if (headSkin != null)
-            {
-                Destroy(headSkin.gameObject);
-            }
-
             headSkin = Instantiate(skinData.headModel, headAttachPoint);
         }
 
         if(skinData.wingModel != null)
         {
-            if (wingSkin != null)
-            {
-                Destroy(wingSkin.gameObject);
-            }
-
             wingSkin = Instantiate(skinData.wingModel, wingAttachPoint);
         }
 
         if(skinData.leftHandWeaponModel != null)
         {
-            if (leftHandWeapon != null)
-            {
-                Destroy(leftHandWeapon.gameObject);
-            }
-
             leftHandWeapon = Instantiate(skinData.leftHandWeaponModel, leftHandWeaponAttachPoint);
+        }
+
+        if(skinData.tailModel != null)
+        {
+            tailSkin = Instantiate(skinData.tailModel, tailAttachPoint);
         }
     }
 }

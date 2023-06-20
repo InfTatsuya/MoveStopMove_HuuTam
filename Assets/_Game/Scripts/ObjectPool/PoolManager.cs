@@ -11,6 +11,7 @@ public class PoolManager : MonoBehaviour
     {
         Character.onAnyCharacterSpawnProjectile += Character_onAnyCharacterSpawnProjectile;
         GameManager.onEnemySpawn += GameManager_onEnemySpawn;
+        EndlessGameMode.onEnemySpawn += EndlessGameMode_onEnemySpawn;
     }
 
     private Enemy GameManager_onEnemySpawn()
@@ -22,6 +23,24 @@ public class PoolManager : MonoBehaviour
         if(enemy != null)
         {
             Vector3 pos = new Vector3(Random.Range(-25f, 25f), 0f, Random.Range(-25f, 25f));           
+            enemy.transform.SetParent(null);
+            enemy.transform.position = pos;
+            enemy.OnNewGame();
+        }
+
+        return enemy;
+    }
+
+
+    private EndlessModeEnemy EndlessGameMode_onEnemySpawn()
+    {
+        Debug.Log("Spawn Enemy run");
+
+        EndlessModeEnemy enemy = characterPool.GetPooledObject() as EndlessModeEnemy;
+
+        if (enemy != null)
+        {
+            Vector3 pos = new Vector3(Random.Range(-25f, 25f), 0f, Random.Range(-25f, 25f));
             enemy.transform.SetParent(null);
             enemy.transform.position = pos;
             enemy.OnNewGame();

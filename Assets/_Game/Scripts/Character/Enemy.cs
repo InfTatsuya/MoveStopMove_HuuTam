@@ -45,7 +45,10 @@ public class Enemy : Character
         IsPause = false;
         agent = GetComponent<NavMeshAgent>();
 
-        IndicatorManager.Instance.CreateNewIndicator(this);
+        if(IndicatorManager.Instance != null)
+        {
+            IndicatorManager.Instance.CreateNewIndicator(this);
+        }
 
         IdleState = new EnemyIdleState(this, Anim, StringCollection.IdleAnim);
         MoveState = new EnemyMoveState(this, Anim, StringCollection.MoveAnim);
@@ -68,10 +71,16 @@ public class Enemy : Character
     {
         int randomIndex = UnityEngine.Random.Range(0, enemyDataList.enemyNames.Count);
         int randomLevel = UnityEngine.Random.Range(0, enemyDataList.maxLevel);
+        int randomWeapon = UnityEngine.Random.Range(0, enemyDataList.weaponTypeList.Count);
+        int randomSkin = UnityEngine.Random.Range(0, enemyDataList.skinDataList.Count);
+        SkinData skinData = enemyDataList.skinDataList[randomSkin];
 
         SetCharacterName(enemyDataList.enemyNames[randomIndex]);
         SetLevel(randomLevel);
+        ChangeWeapon(enemyDataList.weaponTypeList[randomWeapon]);
+        characterSkin.ChangeSkin(skinData, this);
     }
+
 
     protected override void Start()
     {

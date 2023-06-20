@@ -57,6 +57,7 @@ public class ShopSystem : MonoBehaviour, ISaveManager
         if(Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {

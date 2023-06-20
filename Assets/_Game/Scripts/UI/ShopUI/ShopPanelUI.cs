@@ -171,5 +171,6 @@ public class ShopPanelUI : MonoBehaviour
     private void DeactiveSelf()
     {
         this.gameObject.SetActive(false);
+        UIManager.Instance.DeactivateModelView();
     }
 }

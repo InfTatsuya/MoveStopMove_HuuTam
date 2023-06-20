@@ -32,6 +32,7 @@ public abstract class Character : MonoBehaviour, IDamageable
     [SerializeField] protected WeaponList weaponList;
     [SerializeField] Transform attachIndicatorPoint;
     public Transform AttachIndicatorPoint => attachIndicatorPoint;
+    protected CharacterSkin characterSkin;
 
     [Space, Header("Character Info")]
     [SerializeField] protected int health = 100;
@@ -43,6 +44,7 @@ public abstract class Character : MonoBehaviour, IDamageable
     [SerializeField] private float scaleFactor = 0.05f;
 
     [SerializeField] EWeaponType weaponType = EWeaponType.AxeDouble;
+    public EWeaponType WeaponType => weaponType;
     private Weapon equipedWeapon;
 
     protected bool isDead;
@@ -76,6 +78,8 @@ public abstract class Character : MonoBehaviour, IDamageable
 
         while (HasTargetInRange && i < targetsInRange.Length)
         {
+            if (targetsInRange[i] == null) return null;
+
             Character target = targetsInRange[i].gameObject.GetComponent<Character>();
 
             if(target == null) return null;
@@ -109,7 +113,7 @@ public abstract class Character : MonoBehaviour, IDamageable
 
         if (weaponList == null) return; //for debug only. TODO: remove before build
 
-        ChangeWeapon(EWeaponType.AxeDouble);
+        characterSkin = GetComponent<CharacterSkin>();
         isDead = false;
         SetCharacterName();
     }
@@ -190,6 +194,9 @@ public abstract class Character : MonoBehaviour, IDamageable
     public void LookAtTarget(Vector3 target)
     {
         transform.LookAt(target);
+        Vector3 angleEuler = transform.rotation.eulerAngles;
+        angleEuler.x = 0f;
+        transform.rotation = Quaternion.Euler(angleEuler);
     }
 
     public virtual void ReleaseSelf()
@@ -199,10 +206,35 @@ public abstract class Character : MonoBehaviour, IDamageable
 
     public void AppleEffect(EStatsType statType, float newValue, float duration)
     {
-        StartCoroutine(ModifyStatsByBooster(statType, newValue, duration));
+        if(duration > 0)
+        {
+            StartCoroutine(ModifyStatsByBoosterWithDuration(statType, newValue, duration));
+        }
+        else
+        {
+            ModifyStatsByBooster(statType, newValue);
+        }
     }
 
-    protected IEnumerator ModifyStatsByBooster(EStatsType statType ,float newValue, float duration)
+    protected void ModifyStatsByBooster(EStatsType statType, float newValue)
+    {
+        switch (statType)
+        {
+            case EStatsType.AttackRange:
+                attackRange = newValue;
+                break;
+
+            case EStatsType.MoveSpeed:
+                moveSpeed = newValue;
+                break;
+
+            default:
+                break;
+        }
+    }
+
+
+    protected IEnumerator ModifyStatsByBoosterWithDuration(EStatsType statType ,float newValue, float duration)
     {
         float defaultValue = 0;
 
@@ -210,6 +242,7 @@ public abstract class Character : MonoBehaviour, IDamageable
         {
             case EStatsType.AttackRange:
                 defaultValue = attackRange;
+                attackRange = newValue;
                 break;
 
             case EStatsType.MoveSpeed:
@@ -226,6 +259,7 @@ public abstract class Character : MonoBehaviour, IDamageable
         switch (statType)
         {
             case EStatsType.AttackRange:
+                attackRange = defaultValue;
                 break;
 
             case EStatsType.MoveSpeed:

@@ -7,4 +7,6 @@ public class EnemyDataList : ScriptableObject
 {
     public List<string> enemyNames;
     public int maxLevel;
+    public List<SkinData> skinDataList;
+    public List<EWeaponType> weaponTypeList;
 }

@@ -17,7 +17,9 @@ public class SkinData : ScriptableObject
     public GameObject shieldModel;
     public GameObject wingModel;
     public GameObject leftHandWeaponModel;
+    public GameObject tailModel;
     public Texture2D paintTexture;
+    public Texture2D bodyTexture;
 
     public Sprite skinIcon;
     public int price;
@@ -70,6 +72,8 @@ public class SkinData : ScriptableObject
                 shieldModel = null;
                 wingModel = null;
                 leftHandWeaponModel = null;
+                tailModel = null;
+                bodyTexture = null;
                 break;
 
             case ESkinType.Head:
@@ -77,6 +81,8 @@ public class SkinData : ScriptableObject
                 wingModel = null;
                 paintTexture = null;
                 leftHandWeaponModel = null;
+                tailModel = null;
+                bodyTexture = null;
                 break;
 
             case ESkinType.Shield:
@@ -84,6 +90,8 @@ public class SkinData : ScriptableObject
                 wingModel = null;
                 paintTexture = null;
                 leftHandWeaponModel = null;
+                tailModel = null;
+                bodyTexture = null;
                 break;
 
             case ESkinType.FullSet:
