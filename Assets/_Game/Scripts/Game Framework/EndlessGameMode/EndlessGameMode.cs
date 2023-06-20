@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 using Random = UnityEngine.Random;
 
@@ -39,6 +40,7 @@ public class EndlessGameMode : MonoBehaviour
         amtEnemiesToSpawn = endlessData.enenmiesPerWave[currentWave];
 
         player.EndlessMode_Equip(DataTransfer.Instance.PlayerEquipWeapon, DataTransfer.Instance.PlayerSkinDataList);
+        ResumeGame();
     }
 
     private void EndlessModeEnemy_onEndlessEnemyDeath(object sender, EndlessModeEnemy.OnAnyEndlessEnemyDeathArgs e)
@@ -124,5 +126,15 @@ public class EndlessGameMode : MonoBehaviour
         {
             enemy.IsPause = false;
         }
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void ReturnMainMenu()
+    {
+        SceneManager.LoadScene(1);
     }
 }

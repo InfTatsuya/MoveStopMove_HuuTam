@@ -22,8 +22,9 @@ public class BoosterPopupPanel : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("Powerup Start");
         PickupItem.onPickupItem += PickupItem_onPickupItem;
-        if(EndlessGameMode.Instance != null)
+        if(isEndlessMode)
         {
             EndlessGameMode.Instance.onPlayerClearWave += EndlessGameMode_onPlayerClearWave;
         }

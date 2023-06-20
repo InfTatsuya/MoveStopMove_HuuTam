@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EndlessMode_UIManager : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class EndlessMode_UIManager : MonoBehaviour
 
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject powerUpPanel;
+    [SerializeField] GameObject gameOverPanel;
+
+    [SerializeField] Button playAgainButton;
+    [SerializeField] Button mainMenuButton;
 
     private void Awake()
     {
@@ -23,10 +28,23 @@ public class EndlessMode_UIManager : MonoBehaviour
 
     private void Start()
     {
+        playAgainButton.onClick.AddListener(RestartGame);
+        mainMenuButton.onClick.AddListener(ReturnToMainMenu);
+
+        Invoke(nameof(DeactiveAll), 0.5f);
+    }
+
+    private void DeactiveAll()
+    {
         pauseMenu.SetActive(false);
         powerUpPanel.SetActive(false);
+        gameOverPanel.SetActive(false);
+    }
 
-
+    public void OpenGameOverPanel()
+    {
+        DeactiveAll();
+        gameOverPanel.SetActive(true);
     }
 
     public void OpenPauseMenu()
@@ -41,9 +59,15 @@ public class EndlessMode_UIManager : MonoBehaviour
         EndlessGameMode.Instance.ResumeGame();
     }
 
+
+    private void RestartGame()
+    {
+        EndlessGameMode.Instance.RestartGame();
+    }
+
     public void ReturnToMainMenu()
     {
-        //TODO: load MainScene.
+        EndlessGameMode.Instance.ReturnMainMenu();
     }
 
     private void OnDestroy()

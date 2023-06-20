@@ -19,7 +19,7 @@ public class EndlessEnemyMoveState : State
         base.Enter();
         player = EndlessGameMode.Instance.MainPlayer;
         enemy.SetDestination(player.transform.position);
-        scanTimer = 2f;
+        scanTimer = 1f;
     }
 
     public override void Exit()

@@ -10,8 +10,14 @@ public class PoolManager : MonoBehaviour
     private void Start()
     {
         Character.onAnyCharacterSpawnProjectile += Character_onAnyCharacterSpawnProjectile;
-        GameManager.onEnemySpawn += GameManager_onEnemySpawn;
-        EndlessGameMode.onEnemySpawn += EndlessGameMode_onEnemySpawn;
+        if(GameManager.Instance != null)
+        {
+            GameManager.onEnemySpawn += GameManager_onEnemySpawn;
+        }
+        else if(EndlessGameMode.Instance != null)
+        {
+            EndlessGameMode.onEnemySpawn += EndlessGameMode_onEnemySpawn;
+        }
     }
 
     private Enemy GameManager_onEnemySpawn()
@@ -71,5 +77,12 @@ public class PoolManager : MonoBehaviour
                 project.SetupProjectile(dest, instigator, damage, weaponType);
             }
         }       
+    }
+
+    private void OnDestroy()
+    {
+        Character.onAnyCharacterSpawnProjectile -= Character_onAnyCharacterSpawnProjectile;
+        GameManager.onEnemySpawn -= GameManager_onEnemySpawn;
+        EndlessGameMode.onEnemySpawn -= EndlessGameMode_onEnemySpawn;
     }
 }

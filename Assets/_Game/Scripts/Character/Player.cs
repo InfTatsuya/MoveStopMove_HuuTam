@@ -114,6 +114,11 @@ public class Player : Character
             UIManager.Instance.SwitchToRevivePanel();
             GameManager.Instance.PauseGame();
         }     
+        else if(EndlessGameMode.Instance != null)
+        {
+            EndlessGameMode.Instance.PauseGame();
+            EndlessMode_UIManager.Instance.OpenGameOverPanel();
+        }
     }
 
     public bool CheckHaveTargetAndInRange()
@@ -150,6 +155,8 @@ public class Player : Character
         health = 100;
         transform.position = Vector3.zero;
         stateMachine.ChangeState(IdleState);
+
+        RemoveAllAbility();
     }
 
     public void AddAbility(AbilityBooster abilityBooster)
@@ -163,6 +170,14 @@ public class Player : Character
 
         abilityDict.Add(abilityBooster.abilityType, abilityBooster);
         ApplyAbility(abilityBooster);
+    }
+
+    private void RemoveAllAbility()
+    {
+        foreach(KeyValuePair<EAbilityType, AbilityBooster> keyValuePair in abilityDict)
+        {
+            RemoveAbility(keyValuePair.Value);
+        }
     }
 
     private void ApplyAbility(AbilityBooster abilityBooster)
