@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6940729051954892820}
   - component: {fileID: 170391847347791866}
+  - component: {fileID: 1628534399}
   m_Layer: 0
   m_Name: Projectile_Boss
   m_TagString: Untagged
@@ -51,6 +52,27 @@ MonoBehaviour:
   characterMask:
     serializedVersion: 2
     m_Bits: 64
+  isActive: 0
+--- !u!95 &1628534399
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323958950691930081}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 33ee8d36374386540bda01c9a8c63cb8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &6089255887094953378
 GameObject:
   m_ObjectHideFlags: 0
@@ -62,7 +84,6 @@ GameObject:
   - component: {fileID: 7067043667625570880}
   - component: {fileID: 229612048631457299}
   - component: {fileID: 7623898772099699713}
-  - component: {fileID: 4372136069458720879}
   m_Layer: 0
   m_Name: WarningVisual
   m_TagString: Untagged
@@ -78,7 +99,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6089255887094953378}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -135,20 +156,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4372136069458720879
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6089255887094953378}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &5098705254262302338
 PrefabInstance:
   m_ObjectHideFlags: 0

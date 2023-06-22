@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class BossTeleportState : State
 {
+    private EndlessModeBoss boss;
+
     public BossTeleportState(Character character, Animator anim, int animString) : base(character, anim, animString)
     {
+        boss = character as EndlessModeBoss;
     }
 
     public override void Enter()
@@ -21,6 +24,14 @@ public class BossTeleportState : State
     public override void Tick()
     {
         base.Tick();
+
+        if (hasAnimTrigger)
+        {
+            hasAnimTrigger = false;
+
+            boss.CharacterStateMachine.ChangeState(boss.MoveState);
+            return;
+        }
     }
 
 }

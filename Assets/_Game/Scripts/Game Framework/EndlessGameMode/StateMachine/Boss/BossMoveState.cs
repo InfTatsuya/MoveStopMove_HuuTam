@@ -12,7 +12,7 @@ public class BossMoveState : State
     public BossMoveState(Character character, Animator anim, int animString) : base(character, anim, animString)
     {
         boss = character as EndlessModeBoss;
-        //player = EndlessGameMode.Instance.MainPlayer;
+        player = EndlessGameMode.Instance.MainPlayer;
     }
 
     public override void Enter()
@@ -38,17 +38,17 @@ public class BossMoveState : State
 
         if( timer < 0f )
         {
-            if (boss.IsInMeleeRange(player))
-            {
-                boss.CharacterStateMachine.ChangeState(boss.MeleeState);
-            }
-            else if (boss.GetHealthPercent() < 0.2f)
+            if (boss.GetHealthPercent() < 0.2f)
             {
                 boss.CharacterStateMachine.ChangeState(boss.TeleportState);
             }
-            else if(boss.GetHealthPercent() < 0.6f)
+            else if (boss.GetHealthPercent() < 0.6f)
             {
                 boss.CharacterStateMachine.ChangeState(boss.RangeState);
+            }
+            else if (boss.IsInMeleeRange(player))
+            {
+                boss.CharacterStateMachine.ChangeState(boss.MeleeState);
             }
             else
             {

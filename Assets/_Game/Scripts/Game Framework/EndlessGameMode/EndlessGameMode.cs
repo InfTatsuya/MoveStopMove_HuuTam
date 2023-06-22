@@ -20,6 +20,8 @@ public class EndlessGameMode : MonoBehaviour
     [SerializeField] Player player;
     public Player MainPlayer => player;
 
+    [SerializeField] bool testMode;
+
     private int currentWave;
     private int amtEnemiesToSpawn;
 
@@ -45,7 +47,7 @@ public class EndlessGameMode : MonoBehaviour
         amtEnemiesInWave = amtEnemiesToSpawn;
         killCount = 0;
 
-        player.EndlessMode_Equip(DataTransfer.Instance.PlayerEquipWeapon, DataTransfer.Instance.PlayerSkinDataList);
+        //player.EndlessMode_Equip(DataTransfer.Instance.PlayerEquipWeapon, DataTransfer.Instance.PlayerSkinDataList);
         ResumeGame();
     }
 
@@ -59,6 +61,8 @@ public class EndlessGameMode : MonoBehaviour
 
     private void Update()
     {
+        if (testMode) return;
+
         timer -= Time.deltaTime;
 
         if(timer < 0)

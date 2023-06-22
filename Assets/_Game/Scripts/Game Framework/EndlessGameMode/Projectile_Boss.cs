@@ -13,13 +13,12 @@ public class Projectile_Boss : MonoBehaviour
 
     private Character dealer;
 
-    private bool isActive = false;
+    [SerializeField] private bool isActive = false;
 
-    private float timer;
+    private float timer = 3f;
 
     private void Start()
     {
-        isActive = false;
         vfx.SetActive(false);
     }
 
@@ -45,7 +44,7 @@ public class Projectile_Boss : MonoBehaviour
             warningVisual.SetActive(false);
             vfx.SetActive(true);
 
-            ApplyDamage();
+            Invoke(nameof(ApplyDamage), 0.5f);
 
             Destroy(this.gameObject, 1.5f);
 
@@ -60,7 +59,10 @@ public class Projectile_Boss : MonoBehaviour
         {
             if(collider.TryGetComponent<Character>(out var target))
             {
-                target.TakeDamage(damage, dealer);
+                if(target != dealer)
+                {
+                    target.TakeDamage(damage, dealer);
+                }
             }
         }
     }

@@ -29,5 +29,23 @@ public class AnimationTrigger : MonoBehaviour
         {
             enemy.MeleeAttack();
         }
+
+        EndlessModeBoss boss = myCharacter as EndlessModeBoss;
+        if(boss != null)
+        {
+            boss.MeleeAttack();
+        }
     }
+
+    public void TriggerTeleport()
+    {
+        EndlessModeBoss boss = myCharacter as EndlessModeBoss;
+        if (boss != null)
+        {
+            Vector3 pos = EndlessGameMode.Instance.MainPlayer.transform.position + new Vector3(1, 0, -1);
+            boss.Teleport(pos);
+        }
+    }
+
+
 }

@@ -10,7 +10,7 @@ public class BossMeleeState : State
     public BossMeleeState(Character character, Animator anim, int animString) : base(character, anim, animString)
     {
         boss = character as EndlessModeBoss;
-        //player = EndlessGameMode.Instance.MainPlayer;
+        player = EndlessGameMode.Instance.MainPlayer;
 
         int random = Random.Range(0, 2);
         boss.Anim.SetInteger(StringCollection.BossAttackIndex, random);

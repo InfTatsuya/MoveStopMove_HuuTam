@@ -36,7 +36,7 @@ public abstract class Character : MonoBehaviour, IDamageable
 
     [Space, Header("Character Info")]
     [SerializeField] protected int health = 100;
-    protected int maxHeath;
+    [SerializeField] protected int maxHeath;
     [SerializeField] protected int shield = 0;
     [SerializeField] protected bool isInvicible;
     [SerializeField] ParticleSystem hitVFX;
