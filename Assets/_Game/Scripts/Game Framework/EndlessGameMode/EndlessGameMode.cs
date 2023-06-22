@@ -23,6 +23,9 @@ public class EndlessGameMode : MonoBehaviour
     private int currentWave;
     private int amtEnemiesToSpawn;
 
+    private int amtEnemiesInWave;
+    private int killCount;
+
     private float timer = 2f;
 
     [SerializeField] private List<EndlessModeEnemy> enemiesOnScreen = new List<EndlessModeEnemy>();
@@ -39,6 +42,9 @@ public class EndlessGameMode : MonoBehaviour
         currentWave = 0;
         amtEnemiesToSpawn = endlessData.enenmiesPerWave[currentWave];
 
+        amtEnemiesInWave = amtEnemiesToSpawn;
+        killCount = 0;
+
         player.EndlessMode_Equip(DataTransfer.Instance.PlayerEquipWeapon, DataTransfer.Instance.PlayerSkinDataList);
         ResumeGame();
     }
@@ -46,6 +52,9 @@ public class EndlessGameMode : MonoBehaviour
     private void EndlessModeEnemy_onEndlessEnemyDeath(object sender, EndlessModeEnemy.OnAnyEndlessEnemyDeathArgs e)
     {
         enemiesOnScreen.Remove(e.enemy);
+
+        killCount++;
+        EndlessMode_UIManager.Instance.UpdateWaveInfo(currentWave + 1, (float)killCount / amtEnemiesInWave);
     }
 
     private void Update()
@@ -106,6 +115,11 @@ public class EndlessGameMode : MonoBehaviour
 
         currentWave++;
         amtEnemiesToSpawn = endlessData.enenmiesPerWave[currentWave];
+
+        amtEnemiesInWave = amtEnemiesToSpawn;
+        killCount = 0;
+
+        EndlessMode_UIManager.Instance.UpdateWaveInfo(currentWave + 1, 0f);
     }
 
     public void PauseGame()

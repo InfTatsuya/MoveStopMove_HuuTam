@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,9 @@ public class EndlessMode_UIManager : MonoBehaviour
     [SerializeField] Button playAgainButton;
     [SerializeField] Button mainMenuButton;
 
+    [SerializeField] TextMeshProUGUI waveCountText;
+    [SerializeField] Image waveProgressImage;
+
     private void Awake()
     {
         if(Instance == null)
@@ -26,10 +30,18 @@ public class EndlessMode_UIManager : MonoBehaviour
         }
     }
 
+    public void UpdateWaveInfo(int waveCount, float waveProgress)
+    {
+        waveCountText.text = waveCount.ToString();
+        waveProgressImage.fillAmount = waveProgress;
+    }
+
     private void Start()
     {
         playAgainButton.onClick.AddListener(RestartGame);
         mainMenuButton.onClick.AddListener(ReturnToMainMenu);
+
+        UpdateWaveInfo(1, 0f);
 
         Invoke(nameof(DeactiveAll), 0.5f);
     }

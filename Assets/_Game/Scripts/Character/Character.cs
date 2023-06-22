@@ -36,6 +36,7 @@ public abstract class Character : MonoBehaviour, IDamageable
 
     [Space, Header("Character Info")]
     [SerializeField] protected int health = 100;
+    protected int maxHeath;
     [SerializeField] protected int shield = 0;
     [SerializeField] protected bool isInvicible;
     [SerializeField] ParticleSystem hitVFX;
@@ -112,6 +113,8 @@ public abstract class Character : MonoBehaviour, IDamageable
         }
 
         if (weaponList == null) return; //for debug only. TODO: remove before build
+
+        maxHeath = health;
 
         characterSkin = GetComponent<CharacterSkin>();
         isDead = false;
@@ -307,6 +310,8 @@ public abstract class Character : MonoBehaviour, IDamageable
         level = newLevel;
         transform.localScale = Vector3.one * (1 + level * scaleFactor);
     }
+
+    public float GetHealthPercent() => (float)health / maxHeath;
 
 
     private void OnDrawGizmos()

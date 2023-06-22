@@ -10,7 +10,6 @@ public class Indicator : MonoBehaviour
     [SerializeField] Transform target;
     [SerializeField] TextMeshProUGUI levelText;
 
-
     public void SetupIndicator(Character targetToTrack)
     {
         this.target = targetToTrack.AttachIndicatorPoint;
@@ -27,33 +26,41 @@ public class Indicator : MonoBehaviour
         float minY = image.GetPixelAdjustedRect().height / 2;
         float maxY = Screen.height - minY;
 
-        Vector2 calculatePos = Camera.main.WorldToScreenPoint(target.position);
+        Vector3 calculatePos = Camera.main.WorldToScreenPoint(target.position);
 
         Vector2 center = new Vector2(Screen.width / 2, Screen.height / 2);
-        Vector2 pos = calculatePos;
+        Vector3 pos = calculatePos;
 
-        if(calculatePos.x < minX)
+        int i = 0;
+        while(!IsOnScreen(pos, minX, maxX, minY, maxY) && i < 2)
         {
-            pos.x = minX;
-            pos.y = ((minX - center.x) / (calculatePos.x - center.x)) * (calculatePos.y - center.y) + center.y;
-        }
-        else if (calculatePos.x > maxX)
-        {
-            pos.x = maxX;
-            pos.y = ((maxX - center.x) / (calculatePos.x - center.x)) * (calculatePos.y - center.y) + center.y;
-        }
+            if (pos.x < minX)
+            {
+                pos.x = minX;
+                pos.y = ((minX - center.x) / (calculatePos.x - center.x)) * (calculatePos.y - center.y) + center.y;
+            }
+            else if (pos.x > maxX)
+            {
+                pos.x = maxX;
+                pos.y = ((maxX - center.x) / (calculatePos.x - center.x)) * (calculatePos.y - center.y) + center.y;
+            }
+            else if (pos.y < minY)
+            {
+                pos.y = minY;
+                pos.x = ((minY - center.y) / (calculatePos.y - center.y)) * (calculatePos.x - center.x) + center.x;
+            }
+            else if (pos.y > maxY)
+            {
+                pos.y = maxY;
+                pos.x = ((maxY - center.y) / (calculatePos.y - center.y)) * (calculatePos.x - center.x) + center.x;
+            }
 
-        else if(calculatePos.y < minY)
-        {
-            pos.y = minY;
-            pos.x = ((minY - center.y) / (calculatePos.y - center.y)) * (calculatePos.x - center.x) + center.x;
-        }
-        else if(calculatePos.y > maxY)
-        {
-            pos.y = maxY;
-            pos.x = ((maxY - center.y) / (calculatePos.y - center.y)) * (calculatePos.x - center.x) + center.x;
-        }
-
+            if(pos.z < 0)
+            {
+                pos *= -1;
+            }
+            i++;
+        }   
 
         image.transform.position = pos;
 
@@ -61,9 +68,14 @@ public class Indicator : MonoBehaviour
         
         if ((calculatePos - pos).sqrMagnitude < 0.1f) return;
 
-        Vector2 dir = pos - center;
+        Vector2 dir = new Vector2(pos.x, pos.y) - center;
         float angleToRotate = Vector2.Angle(Vector2.down, dir);
         image.transform.Rotate(0f, 0f, dir.x > 0 ? angleToRotate : -angleToRotate);
 
+    }
+
+    private bool IsOnScreen(Vector2 position, float minX, float maxX, float minY, float maxY)
+    {
+        return (position.x > minX && position.x < maxX && position.y > minY && position.y < maxY);
     }
 }
