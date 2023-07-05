@@ -65,6 +65,7 @@ public class Enemy : Character
         stateMachine.Initialize(IdleState);
 
         SetupEnemyInfo();
+        health = maxHeath;
     }
 
     private void SetupEnemyInfo()
@@ -89,6 +90,10 @@ public class Enemy : Character
 
     protected override void Update()
     {
+        if (true)
+        {
+
+        }
         if (IsPause)
         {
             agent.isStopped = true;
@@ -112,8 +117,10 @@ public class Enemy : Character
         onAnyEnemyDeath?.Invoke(this, new OnAnyEnemyDeathArgs { enemy = this, damageDealer = damageDealer });
     }
 
+    Vector3 desPoint;
     public void SetDestination(Vector3 dest)
     {
+        desPoint = dest;
         agent.SetDestination(dest);
     }
 
@@ -122,7 +129,8 @@ public class Enemy : Character
         agent.ResetPath();
     }
 
-    public bool IsAtDestination() => !agent.pathPending && !agent.hasPath;
+    //public bool IsAtDestination() => !agent.pathPending && !agent.hasPath;
+    public bool IsAtDestination() => Vector3.Distance(transform.position, desPoint) < 0.1f + Mathf.Abs(transform.position.y - desPoint.y);
 
     public void SetEnemyAsTarget(bool isTarget)
     {

@@ -44,13 +44,7 @@ public class PoolManager : MonoBehaviour
 
         EndlessModeEnemy enemy = characterPool.GetPooledObject() as EndlessModeEnemy;
 
-        if (enemy != null)
-        {
-            Vector3 pos = new Vector3(Random.Range(-25f, 25f), 0f, Random.Range(-25f, 25f));
-            enemy.transform.SetParent(null);
-            enemy.transform.position = pos;
-            enemy.OnNewGame();
-        }
+        
 
         return enemy;
     }

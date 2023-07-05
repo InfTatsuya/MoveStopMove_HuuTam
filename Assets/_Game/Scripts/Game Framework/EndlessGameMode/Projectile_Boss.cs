@@ -57,7 +57,7 @@ public class Projectile_Boss : MonoBehaviour
         var colliders = Physics.OverlapSphere(transform.position, radius, characterMask);
         foreach(Collider collider in colliders)
         {
-            if(collider.TryGetComponent<Character>(out var target))
+            if(CachedObjects.TryGetCharacterByCollider(collider, out Character target))
             {
                 if(target != dealer)
                 {

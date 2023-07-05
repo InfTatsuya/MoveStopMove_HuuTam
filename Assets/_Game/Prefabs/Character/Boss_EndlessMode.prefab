@@ -121,6 +121,7 @@ MonoBehaviour:
   weaponList: {fileID: 0}
   attachIndicatorPoint: {fileID: 3068174110677828513}
   health: 400
+  maxHeath: 400
   shield: 0
   isInvicible: 0
   hitVFX: {fileID: 6743304853604710976}

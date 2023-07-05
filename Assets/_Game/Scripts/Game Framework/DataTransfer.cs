@@ -7,7 +7,13 @@ public class DataTransfer : MonoBehaviour
     public static DataTransfer Instance { get; private set; }
 
     private List<SkinData> playerSkinDataList = new List<SkinData>();
-    public List<SkinData> PlayerSkinDataList => playerSkinDataList;
+    public List<SkinData> PlayerSkinDataList
+    {
+        get
+        {
+            return playerSkinDataList;
+        }
+    }
 
 
     private EWeaponType playerEquipWeapon;
@@ -30,5 +36,10 @@ public class DataTransfer : MonoBehaviour
     {
         playerEquipWeapon = GameManager.Instance.MainPlayer.WeaponType;
         playerSkinDataList = GameManager.Instance.MainPlayer.GetComponent<CharacterSkin>().GetCurrentEquipSkinData();
+    }
+
+    public void DestroySelf()
+    {
+        Destroy(this.gameObject);
     }
 }

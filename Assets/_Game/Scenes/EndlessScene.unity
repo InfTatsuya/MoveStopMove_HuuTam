@@ -805,6 +805,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss_EndlessMode
       objectReference: {fileID: 0}
+    - target: {fileID: 951697923098313785, guid: 69a2cb054372cb548b5a376854fd08e0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3414989995528464692, guid: 69a2cb054372cb548b5a376854fd08e0, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2307,7 +2311,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c65c3e9197f440d4d9a9b3e63b348bd5, type: 2}
   endlessData: {fileID: 11400000, guid: 712ffda20803e504f8ad076cfdbdfb9b, type: 2}
   player: {fileID: 1433583721}
-  testMode: 1
+  testMode: 0
   enemiesOnScreen: []
 --- !u!4 &1934368803
 Transform:
@@ -2592,7 +2596,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1

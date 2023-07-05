@@ -55,6 +55,10 @@ public class Projectile : MonoBehaviour
         {
             needSpin = false;
         }
+        else
+        {
+            needSpin = true;
+        }
 
         SetupVisualModel();
 
@@ -89,7 +93,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.TryGetComponent<IDamageable>(out var target))
+        if(CachedObjects.TryGetIDamagebleByCollider(other, out IDamageable target))
         {
             if (target == dealer) return;
            

@@ -85,6 +85,11 @@ public class CharacterSkin : MonoBehaviour
 
     private void EquipSkin(SkinData skinData)
     {
+        if(pants == null || body == null)
+        {
+            Destroy(this);
+        }
+
         if (isEquipSet)
         {
             RemoveSkinSet();
@@ -152,11 +157,26 @@ public class CharacterSkin : MonoBehaviour
             tailSkin = null;
         }
 
-        body.GetComponent<Renderer>().material.SetTexture("_MainTex", null);
-        bodySkinData = null;
-
-        pants.GetComponent<Renderer>().material.SetTexture("_MainTex", null);
-        pantSkinData = null;
+        if(body == null)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            body.GetComponent<Renderer>().material.SetTexture("_MainTex", null);
+            bodySkinData = null;
+        }
+        
+        if(pants == null)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            pants.GetComponent<Renderer>().material.SetTexture("_MainTex", null);
+            pantSkinData = null;
+        }
+        
 
         isEquipSet = false;
     }

@@ -26,7 +26,7 @@ public class IndicatorManager : MonoBehaviour
     {
         if (indicatorDict.ContainsKey(character)) return;
         
-        Indicator instance = Instantiate(indicatorPrefab, transform);
+        Indicator instance = Instantiate(indicatorPrefab, Vector3.zero, Quaternion.identity, transform);
         instance.SetupIndicator(character);
         indicatorDict.Add(character, instance);
         

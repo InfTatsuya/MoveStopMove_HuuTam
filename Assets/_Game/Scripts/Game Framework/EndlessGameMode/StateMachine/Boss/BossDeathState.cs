@@ -28,7 +28,7 @@ public class BossDeathState : State
 
         if (timer < 0f)
         {
-            character.ReleaseSelf();
+            GameObject.Destroy(character.gameObject);
         }
     }
 }

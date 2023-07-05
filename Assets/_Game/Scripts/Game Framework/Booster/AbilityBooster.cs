@@ -37,5 +37,6 @@ public enum EAbilityType
     MultipleThrow,
     Shield,
     WeaponOrbit,
-    Invincible
+    Invincible,
+    None
 }

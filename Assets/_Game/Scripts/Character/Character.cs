@@ -36,7 +36,7 @@ public abstract class Character : MonoBehaviour, IDamageable
 
     [Space, Header("Character Info")]
     [SerializeField] protected int health = 100;
-    [SerializeField] protected int maxHeath;
+    [SerializeField] protected int maxHeath = 100;
     [SerializeField] protected int shield = 0;
     [SerializeField] protected bool isInvicible;
     [SerializeField] ParticleSystem hitVFX;
@@ -81,15 +81,21 @@ public abstract class Character : MonoBehaviour, IDamageable
         {
             if (targetsInRange[i] == null) return null;
 
-            Character target = targetsInRange[i].gameObject.GetComponent<Character>();
-
-            if(target == null) return null;
-
-            if (target.gameObject.activeInHierarchy && target != this && !target.IsDead)
+            //Character target = targetsInRange[i].gameObject.GetComponent<Character>();
+            if(CachedObjects.TryGetCharacterByCollider(targetsInRange[i], out Character target))
             {
-                return target;
+                if (target.gameObject.activeInHierarchy && target != this && !target.IsDead)
+                {
+                    return target;
+                }
+            }
+            else
+            {
+                return null;
             }
             i++;
+
+            //if(target == null) return null;
         }
 
         return null;
@@ -139,6 +145,8 @@ public abstract class Character : MonoBehaviour, IDamageable
 
     protected virtual void Update()
     {
+        if (GameManager.Instance != null && GameManager.Instance.CurrentGameState != GameManager.GameState.Playing) return;
+
         if(stateMachine.CurrentState != null)
         {
             stateMachine.CurrentState.Tick();
@@ -160,6 +168,7 @@ public abstract class Character : MonoBehaviour, IDamageable
     public void TakeDamage(int damageToTake, Character damageDealer)
     {
         if (isInvicible) return;
+        if(isDead) return;
 
         if(shield > 0)
         {

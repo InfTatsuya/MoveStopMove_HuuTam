@@ -22,7 +22,7 @@ public class BossMoveState : State
         Vector3 target = player.transform.position;
         boss.SetDestination(target);
 
-        timer = 1f;
+        timer = 0.3f;
     }
 
     public override void Exit()

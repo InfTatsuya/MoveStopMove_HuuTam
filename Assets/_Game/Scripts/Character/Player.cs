@@ -48,7 +48,7 @@ public class Player : Character
         Debug.Log("OnInit player chay");
     }
 
-    private void Instance_onPurchaseSkin(object sender, ShopSystem.OnEquipSkinArgs e)
+    private void ShopSystem_onPurchaseSkin(object sender, ShopSystem.OnEquipSkinArgs e)
     {
         characterSkin.ChangeSkin(e.skinData, this);
     }
@@ -71,7 +71,7 @@ public class Player : Character
 
         JoyStick.onStickInputValueUpdated += JoyStick_onStickInputValueUpdated;
         ShopSystem.Instance.onEquipWeapon += ShopSystem_onPurchaseWeapon;
-        ShopSystem.Instance.onEquipSkin += Instance_onPurchaseSkin;
+        ShopSystem.Instance.onEquipSkin += ShopSystem_onPurchaseSkin;
         ChangeWeapon(EWeaponType.Hammer);
 
         //AddAbility(testAbility); // for testing, TODO: remove before build
@@ -290,5 +290,11 @@ public class Player : Character
             if(skin == null) continue;  
             characterSkin.ChangeSkin(skin, this);
         }
+    }
+
+    private void OnDestroy()
+    {
+        ShopSystem.Instance.onEquipWeapon -= ShopSystem_onPurchaseWeapon;
+        ShopSystem.Instance.onEquipSkin -= ShopSystem_onPurchaseSkin;
     }
 }

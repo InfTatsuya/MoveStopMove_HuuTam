@@ -3,12 +3,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Random = UnityEngine.Random;
+
 public class GameManager : MonoBehaviour, ISaveManager
 {
+    public enum GameState
+    {
+        MainMenu,
+        Playing,
+        Pause,
+        GameOver
+    }
+
     public static GameManager Instance {  get; private set; }
 
     public delegate Enemy OnSpawnEnemy();
     public static event OnSpawnEnemy onEnemySpawn;
+
+    private GameState gameState = GameState.MainMenu;
+    public GameState CurrentGameState
+    {
+        get => gameState;
+
+        private set
+        {
+            gameState = value;
+            switch (value)
+            {
+                case GameState.MainMenu:
+                    isPlaying = false;
+                    Time.timeScale = 1f;
+                    break;
+
+                case GameState.Playing:
+                    isPlaying = true;
+                    Time.timeScale = 1f;
+                    break;
+
+                case GameState.Pause:
+                    isPlaying = false;
+                    Time.timeScale = 0f;
+                    break;
+
+                case GameState.GameOver:
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
 
     [SerializeField] Player player;
     public Player MainPlayer => player;
@@ -48,6 +92,11 @@ public class GameManager : MonoBehaviour, ISaveManager
         }
     }
 
+    private void Start()
+    {
+        gameState = GameState.MainMenu;
+    }
+
     private void OnDestroy()
     {
         if(Instance == this)
@@ -58,7 +107,7 @@ public class GameManager : MonoBehaviour, ISaveManager
 
     private void Update()
     {
-        if (!isPlaying) return;
+        if (gameState != GameState.Playing) return;
 
         spawnTimer -= Time.deltaTime;
 
@@ -76,7 +125,27 @@ public class GameManager : MonoBehaviour, ISaveManager
 
         for(int i = 0; i < amount; i++)
         {
-            enemiesOnScreen.Add(onEnemySpawn?.Invoke());
+            Enemy enemy = onEnemySpawn?.Invoke();
+            bool isOkie = false;
+
+            while (!isOkie)
+            {
+                Vector3 pos = new Vector3(Random.Range(-25f, 25f), 0f, Random.Range(-25f, 25f));
+
+                if (Vector3.Distance(pos, GameManager.Instance.MainPlayer.transform.position) > 5f)
+                {
+                    isOkie = true;
+
+                    if (enemy != null)
+                    {
+                        enemy.transform.SetParent(null);
+                        enemy.transform.position = pos;
+                        enemy.OnNewGame();
+                    }
+                }
+            }
+
+            enemiesOnScreen.Add(enemy);
             yield return new WaitForSeconds(1f);
         }
 
@@ -85,9 +154,10 @@ public class GameManager : MonoBehaviour, ISaveManager
 
     public void StartNewGame()
     {
-        StartCoroutine(SpawnEnemy(1));
+        CurrentGameState = GameState.Playing;
+
+        StartCoroutine(SpawnEnemy(initialAmountEnemy));
         spawnTimer = spawnCooldown;
-        isPlaying = true;
 
         player.OnNewGame();
         playerKillCount = 0;
@@ -116,7 +186,7 @@ public class GameManager : MonoBehaviour, ISaveManager
 
     public void PauseGame()
     {
-        isPlaying = false;
+        CurrentGameState = GameState.Pause;
         foreach(var enemy in enemiesOnScreen)
         {
             enemy.IsPause = true;
@@ -125,7 +195,7 @@ public class GameManager : MonoBehaviour, ISaveManager
 
     public void ResumeGame()
     {
-        isPlaying = true;
+        CurrentGameState = GameState.Playing;
         foreach (var enemy in enemiesOnScreen)
         {
             enemy.IsPause = false;
@@ -134,8 +204,8 @@ public class GameManager : MonoBehaviour, ISaveManager
 
     public void ReturnAllEnemy()
     {
-        isPlaying = false;
-        foreach(var enemy in enemiesOnScreen)
+        CurrentGameState = GameState.MainMenu;
+        foreach (var enemy in enemiesOnScreen)
         {
             enemy.ReleaseSelf();
         }

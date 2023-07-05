@@ -80,6 +80,7 @@ public class EndlessMode_UIManager : MonoBehaviour
     public void ReturnToMainMenu()
     {
         EndlessGameMode.Instance.ReturnMainMenu();
+        DataTransfer.Instance.DestroySelf();
     }
 
     private void OnDestroy()
