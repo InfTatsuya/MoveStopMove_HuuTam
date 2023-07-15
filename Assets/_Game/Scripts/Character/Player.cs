@@ -112,7 +112,7 @@ public class Player : Character
         if(GameManager.Instance != null)
         {
             UIManager.Instance.SwitchToRevivePanel();
-            GameManager.Instance.PauseGame();
+            //GameManager.Instance.PauseGame();
         }     
         else if(EndlessGameMode.Instance != null)
         {
@@ -152,7 +152,7 @@ public class Player : Character
     public override void OnNewGame()
     {
         SetCharacterName();
-        health = 100;
+        health = maxHeath;
         transform.position = Vector3.zero;
         stateMachine.ChangeState(IdleState);
 

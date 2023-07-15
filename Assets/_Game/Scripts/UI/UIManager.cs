@@ -58,7 +58,7 @@ public class UIManager : MonoBehaviour
         tryAgainButton.onClick.AddListener(ResetGame);
 
         SwitchToMainMenuUI();
-        ingameUI.SetActive(true);
+        //ingameUI.SetActive(true);
 
         DeactivateModelView();
     }
